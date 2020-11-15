@@ -14,7 +14,11 @@ namespace ClienteAPI.Util
 
             string cpf = (string) value;
 
-            if (string.IsNullOrWhiteSpace(cpf) || (cpf.Length != 11 && cpf.Length != 14))
+            int[] multiplier1 = {10, 9, 8, 7, 6, 5, 4, 3, 2};
+            int[] multiplier2 = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
+
+
+            if (string.IsNullOrWhiteSpace(cpf) || cpf.Length != 14)
                 return false;
 
             if (cpf.Length == 14 && (cpf[3] != '.' || cpf[7] != '.' || cpf[11] != '-'))
@@ -25,31 +29,37 @@ namespace ClienteAPI.Util
             if (digits.Length != 11)
                 return false;
 
-            var verifiers = digits.Substring(9, 2);
+            for (int j = 0; j < 10; j++)
+                if (j.ToString().PadLeft(11, char.Parse(j.ToString())) == digits)
+                    return false;
 
-            var actualNumber = digits.Substring(0, 9);
+            string tempCpf = digits.Substring(0, 9);
+            int sum = 0;
 
-            var verifier1 = Mod11(actualNumber);
+            for (int i = 0; i < 9; i++)
+                sum += int.Parse(tempCpf[i].ToString()) * multiplier1[i];
 
-            if (verifier1 != verifiers[0])
-                return false;
+            int mod = sum % 11;
+            if (mod < 2)
+                mod = 0;
+            else
+                mod = 11 - mod;
 
-            actualNumber += verifier1;
+            string digit = mod.ToString();
+            tempCpf = tempCpf + digit;
+            sum = 0;
+            for (int i = 0; i < 10; i++)
+                sum += int.Parse(tempCpf[i].ToString()) * multiplier2[i];
 
-            var verifier2 = Mod11(actualNumber);
+            mod = sum % 11;
+            if (mod < 2)
+                mod = 0;
+            else
+                mod = 11 - mod;
 
-            return verifier2 == verifiers[1];
-        }
+            digit = digit + mod;
 
-        private static char Mod11(string number)
-        {
-            var sum = 0;
-
-            for (int i = number.Length - 1, multiplier = 2; i >= 0; --i, ++multiplier)
-                sum += int.Parse(number[i].ToString()) * multiplier;
-
-            var mod11 = sum % 11;
-            return mod11 < 2 ? '0' : (11 - mod11).ToString()[0];
+            return cpf.EndsWith(digit);
         }
     }
 }
