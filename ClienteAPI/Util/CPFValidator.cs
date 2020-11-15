@@ -7,7 +7,7 @@ namespace ClienteAPI.Util
     {
         public override bool IsValid(object? value)
         {
-            if (value == null || value is not string)
+            if (!(value is string))
             {
                 return false;
             }
