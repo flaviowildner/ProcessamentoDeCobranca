@@ -14,7 +14,7 @@ using Microsoft.Extensions.Options;
 namespace ClienteAPI.Controllers
 {
     [ApiController]
-    [Route("/api/[controller]")]
+    [Route("/api/cliente")]
     public class ClienteController : ControllerBase
     {
         private readonly IClienteService _clienteService;
