@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using AutoMapper;
 using ClienteAPI.Services;
@@ -45,7 +46,7 @@ namespace ClienteAPI.Controllers
 
         [HttpGet]
         [Route("find")]
-        public async Task<ClienteDTO> Get([FromQuery] [CPFValidator] string cpf)
+        public async Task<ClienteDTO> Get([FromQuery] [Required] [CPFValidator] string cpf)
         {
             long longCpf = _cpfFormatter.ToLong(cpf);
 
