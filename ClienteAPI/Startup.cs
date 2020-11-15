@@ -1,18 +1,21 @@
+using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.OpenApi.Models;
-using Microsoft.EntityFrameworkCore;
+using ClienteAPI.Mappers;
 using ClienteAPI.Persistence.Contexts;
 using ClienteAPI.Persistence.Repositories;
 using ClienteAPI.Services;
 using ClienteAPI.Util;
-using ClienteAPI.Mappers;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 
-namespace ProcessamentoDeCobranca
+namespace ClienteAPI
 {
     public class Startup
     {
@@ -29,6 +32,18 @@ namespace ProcessamentoDeCobranca
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "ClienteAPI", Version = "v1"});
+            });
+
+            services.Configure<ApiBehaviorOptions>(o =>
+            {
+                o.InvalidModelStateResponseFactory = actionContext =>
+                {
+                    List<string> errors = actionContext.ModelState.SelectMany(m => m.Value.Errors)
+                        .Select(m => m.ErrorMessage)
+                        .ToList();
+
+                    return new BadRequestObjectResult(new {messages = errors});
+                };
             });
 
             services.AddDbContext<ApiDbContext>(options =>

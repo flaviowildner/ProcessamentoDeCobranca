@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using ClienteAPI.Util;
+﻿using ClienteAPI.Util;
 using Xunit;
 
 namespace ClienteAPI.Test.Util
@@ -29,6 +28,7 @@ namespace ClienteAPI.Test.Util
         [InlineData("111.111.11111")]
         [InlineData("255.305.154-9545")]
         [InlineData("055-305-154-95")]
+        [InlineData("1.1.1-2")]
         public void testInvalidFormat(string cpf)
         {
             Assert.False(_cpfValidator.IsValid(cpf));   

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
+using ClienteAPI.Util;
 
-namespace ClienteAPI.Util
+namespace ClienteAPI.Mappers
 {
     public class CPFValueConverter : IValueConverter<string, long>, IValueConverter<long, string>
     {

@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ClienteAPI.Persistence.Repositories;
 using ClienteAPI.Models.Entity;
+using ClienteAPI.Models.Services;
 
 namespace ClienteAPI.Services
 {
@@ -14,19 +16,55 @@ namespace ClienteAPI.Services
             _clienteRepository = clienteRepository;
         }
 
-        public async Task AddAsync(Cliente cliente)
+        private async Task<bool> ExistsAsync(long cpf)
         {
-            await _clienteRepository.AddAsync(cliente);
+            ClienteResponse clienteResponse = await FindByCpf(cpf);
+            return clienteResponse.Success && clienteResponse.Resource != null;
         }
 
-        public async Task<Cliente> FindByCpf(long cpf)
+        public async Task<ClienteResponse> AddAsync(Cliente cliente)
         {
-            return await _clienteRepository.FindByCpf(cpf);
+            if (await ExistsAsync(cliente.Cpf))
+            {
+                return new ClienteResponse("Duplicated CPF");
+            }
+
+            try
+            {
+                await _clienteRepository.AddAsync(cliente);
+
+                return new ClienteResponse(cliente);
+            }
+            catch (Exception ex)
+            {
+                return new ClienteResponse($"An error ocurred while saving cliente: {ex.Message}");
+            }
         }
 
-        public async Task<IEnumerable<Cliente>> ListAsync()
+        public async Task<ClienteResponse> FindByCpf(long cpf)
         {
-            return await _clienteRepository.ListAsync();
+            try
+            {
+                Cliente cliente = await _clienteRepository.FindByCpf(cpf);
+                return new ClienteResponse(cliente);
+            }
+            catch (Exception ex)
+            {
+                return new ClienteResponse($"An error ocurred while finding cliente: {ex.Message}");
+            }
+        }
+
+        public async Task<ClienteListResponse> ListAsync()
+        {
+            try
+            {
+                IEnumerable<Cliente> clientes = await _clienteRepository.ListAsync();
+                return new ClienteListResponse(clientes);
+            }
+            catch (Exception ex)
+            {
+                return new ClienteListResponse($"An error ocurred while getting clientes: {ex.Message}");
+            }
         }
     }
 }
