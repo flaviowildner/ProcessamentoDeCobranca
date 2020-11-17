@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ClienteAPI.Models.Services
+﻿namespace CobrancaAPI.Models.Services
 {
     public class BaseResponse<T>
     {
