@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using ClienteAPI.Models.DTO;
 using CobrancaAPI.Models.DTO;
@@ -15,15 +16,25 @@ namespace CalculadorDeConsumo.Communication
         {
             HttpResponseMessage response = await _httpClient.GetAsync("https://localhost:44316/api/cliente");
 
-            return (IEnumerable<ClienteDTO>) await response.Content.ReadFromJsonAsync(typeof(IEnumerable<ClienteDTO>));
+            string clientesString = await response.Content.ReadAsStringAsync();
+            
+            JsonSerializerOptions jsonSerializerOptions = new JsonSerializerOptions();
+            jsonSerializerOptions.PropertyNameCaseInsensitive = true;
+            
+            return JsonSerializer.Deserialize<IEnumerable<ClienteDTO>>(clientesString, jsonSerializerOptions);
         }
 
         public async Task<CobrancaDTO> CreateCobranca(CobrancaDTO cobranca)
         {
-            HttpResponseMessage response =
-                await _httpClient.PostAsJsonAsync("https://localhost:44388/api/cobrancas", cobranca);
+            var cobrancaSerialized = new StringContent(
+                JsonSerializer.Serialize(cobranca),
+                Encoding.UTF8,
+                "application/json");
 
-            return (CobrancaDTO) await response.Content.ReadFromJsonAsync(typeof(CobrancaDTO));
+            HttpResponseMessage response =
+                await _httpClient.PostAsync("https://localhost:44388/api/cobrancas", cobrancaSerialized);
+
+            return JsonSerializer.Deserialize<CobrancaDTO>(await response.Content.ReadAsStringAsync());
         }
     }
 }
