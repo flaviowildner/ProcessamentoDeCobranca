@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CobrancaAPI.Test", "Cobranc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculadorDeConsumo", "CalculadorDeConsumo\CalculadorDeConsumo.csproj", "{DAF055AB-BFE5-4BF7-855E-DA4B756E4592}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculadorDeConsumo.Tests", "CalculadorDeConsumo.Tests\CalculadorDeConsumo.Tests.csproj", "{47A6492B-6AB2-4258-BAE4-31B8050F18AD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{DAF055AB-BFE5-4BF7-855E-DA4B756E4592}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAF055AB-BFE5-4BF7-855E-DA4B756E4592}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAF055AB-BFE5-4BF7-855E-DA4B756E4592}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47A6492B-6AB2-4258-BAE4-31B8050F18AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47A6492B-6AB2-4258-BAE4-31B8050F18AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47A6492B-6AB2-4258-BAE4-31B8050F18AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47A6492B-6AB2-4258-BAE4-31B8050F18AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
