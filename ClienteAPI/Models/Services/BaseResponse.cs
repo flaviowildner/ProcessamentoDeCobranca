@@ -2,22 +2,22 @@
 
 namespace ClienteAPI.Models.Services
 {
-    public class BaseResponse<T>
+    public abstract class BaseResponse<T>
     {
         public T Resource { get; }
 
         public bool Success { get; }
 
-        public string Message { get; }
+        public string[] Message { get; }
 
         public BaseResponse(T resource)
         {
             Resource = resource;
             Success = true;
-            Message = "";
+            Message = Array.Empty<string>();
         }
 
-        public BaseResponse(string message)
+        public BaseResponse(string[] message)
         {
             Resource = default;
             Success = false;

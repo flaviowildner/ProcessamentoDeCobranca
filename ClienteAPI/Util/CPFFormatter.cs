@@ -1,23 +1,26 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ClienteAPI.Util
 {
     public class CPFFormatter : ICPFFormatter
     {
-        public string ToString(long input)
+        public string ToString(long cpf)
         {
-            return input.ToString(@"000\.000\.000\-00");
+            return cpf.ToString(@"000\.000\.000\-00");
         }
 
-        public long ToLong(string input)
+        public long ToLong(string cpf)
         {
-            StringBuilder longCpfBuilder = new StringBuilder(input.Trim());
+            if (cpf == null)
+                return 0;
 
-            longCpfBuilder.Replace(",", "");
-            longCpfBuilder.Replace(".", "");
-            longCpfBuilder.Replace("-", "");
+            string digits = new string(cpf.Where(char.IsDigit).ToArray());
 
-            return long.Parse(longCpfBuilder.ToString());
+            if (digits.Length == 0)
+                return 0;
+
+            return long.Parse(digits);
         }
     }
 }

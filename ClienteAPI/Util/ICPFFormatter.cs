@@ -4,7 +4,7 @@ namespace ClienteAPI.Util
 {
     public interface ICPFFormatter
     {
-        string ToString(long input);
-        long ToLong(string input);
+        string ToString(long cpf);
+        long ToLong(string cpf);
     }
 }

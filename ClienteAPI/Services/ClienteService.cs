@@ -1,19 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ClienteAPI.Persistence.Repositories;
 using ClienteAPI.Models.Entity;
 using ClienteAPI.Models.Services;
+using ClienteAPI.Util;
+using ClienteAPI.Util.Validators;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace ClienteAPI.Services
 {
     public class ClienteService : IClienteService
     {
         private readonly IClienteRepository _clienteRepository;
+        private readonly IValidator<Cliente> _clienteValidator;
+        private readonly ICPFValidator _cpfValidator;
 
-        public ClienteService(IClienteRepository clienteRepository)
+        public ClienteService(IClienteRepository clienteRepository, IValidator<Cliente> clienteValidator,
+            ICPFValidator cpfValidator)
         {
             _clienteRepository = clienteRepository;
+            _clienteValidator = clienteValidator;
+            _cpfValidator = cpfValidator;
         }
 
         private async Task<bool> ExistsAsync(long cpf)
@@ -24,6 +34,15 @@ namespace ClienteAPI.Services
 
         public async Task<ClienteResponse> AddAsync(Cliente cliente)
         {
+            ValidationResult validationResult = await _clienteValidator.ValidateAsync(cliente);
+            if (!validationResult.IsValid)
+            {
+                return new ClienteResponse(validationResult.Errors
+                    .Select(error => error.ErrorMessage)
+                    .ToArray()
+                );
+            }
+
             if (await ExistsAsync(cliente.Cpf))
             {
                 return new ClienteResponse("Duplicated CPF");
@@ -43,6 +62,11 @@ namespace ClienteAPI.Services
 
         public async Task<ClienteResponse> FindByCpf(long cpf)
         {
+            if (!_cpfValidator.IsValid(cpf))
+            {
+                return new ClienteResponse("Invalid CPF");
+            }
+
             try
             {
                 Cliente cliente = await _clienteRepository.FindByCpf(cpf);

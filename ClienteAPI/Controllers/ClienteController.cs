@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using AutoMapper;
 using ClienteAPI.Services;
@@ -45,22 +44,25 @@ namespace ClienteAPI.Controllers
         }
 
         [HttpGet]
-        [Route("find")]
-        public async Task<ClienteDTO> Get([FromQuery] [Required] [CPFValidator] string cpf)
+        public async Task<IActionResult> Get([FromQuery] string cpf)
         {
+            if (string.IsNullOrEmpty(cpf))
+            {
+                return await ListAsync();
+            }
+
             long longCpf = _cpfFormatter.ToLong(cpf);
 
             ClienteResponse clienteResponse = await _clienteService.FindByCpf(longCpf);
 
-            return _mapper.Map<Cliente, ClienteDTO>(clienteResponse.Resource);
+            return Ok(_mapper.Map<Cliente, ClienteDTO>(clienteResponse.Resource));
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<ClienteDTO>> ListAsync()
+        private async Task<IActionResult> ListAsync()
         {
             ClienteListResponse clientes = await _clienteService.ListAsync();
 
-            return _mapper.Map<IEnumerable<Cliente>, IEnumerable<ClienteDTO>>(clientes.Resource);
+            return Ok(_mapper.Map<IEnumerable<Cliente>, IEnumerable<ClienteDTO>>(clientes.Resource));
         }
 
         public override ActionResult ValidationProblem()

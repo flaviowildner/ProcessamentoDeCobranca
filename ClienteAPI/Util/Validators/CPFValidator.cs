@@ -1,37 +1,27 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.Linq;
 
-namespace ClienteAPI.Util
+namespace ClienteAPI.Util.Validators
 {
-    public class CPFValidator : ValidationAttribute
+    public class CPFValidator : ICPFValidator
     {
-        public override bool IsValid(object value)
+        public bool IsValid(long cpf)
         {
-            if (!(value is string))
-            {
-                return false;
-            }
+            string cpfString = cpf.ToString(@"00000000000");
 
-            string cpf = (string) value;
-
-            int[] multiplier1 = {10, 9, 8, 7, 6, 5, 4, 3, 2};
-            int[] multiplier2 = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
-
-
-            if (string.IsNullOrWhiteSpace(cpf) || cpf.Length != 14)
+            if (string.IsNullOrWhiteSpace(cpfString) || cpfString.Length != 11)
                 return false;
 
-            if (cpf.Length == 14 && (cpf[3] != '.' || cpf[7] != '.' || cpf[11] != '-'))
-                return false;
-
-            var digits = new string(cpf.Where(char.IsDigit).ToArray());
-
+            var digits = new string(cpfString.Where(char.IsDigit).ToArray());
             if (digits.Length != 11)
                 return false;
 
             for (int j = 0; j < 10; j++)
                 if (j.ToString().PadLeft(11, char.Parse(j.ToString())) == digits)
                     return false;
+
+
+            int[] multiplier1 = {10, 9, 8, 7, 6, 5, 4, 3, 2};
+            int[] multiplier2 = {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
 
             string tempCpf = digits.Substring(0, 9);
             int sum = 0;
@@ -59,7 +49,7 @@ namespace ClienteAPI.Util
 
             digit = digit + mod;
 
-            return cpf.EndsWith(digit);
+            return cpfString.EndsWith(digit);
         }
     }
 }

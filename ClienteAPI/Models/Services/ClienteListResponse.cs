@@ -9,7 +9,11 @@ namespace ClienteAPI.Models.Services
         {
         }
 
-        public ClienteListResponse(string message) : base(message)
+        public ClienteListResponse(string message) : base(new[] {message})
+        {
+        }
+
+        public ClienteListResponse(string[] message) : base(message)
         {
         }
     }

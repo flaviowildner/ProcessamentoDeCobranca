@@ -8,7 +8,11 @@ namespace ClienteAPI.Models.Services
         {
         }
 
-        public ClienteResponse(string message) : base(message)
+        public ClienteResponse(string[] message) : base(message)
+        {
+        }
+
+        public ClienteResponse(string message) : base(new[] {message})
         {
         }
     }

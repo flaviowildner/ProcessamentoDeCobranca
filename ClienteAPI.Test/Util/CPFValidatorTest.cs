@@ -1,43 +1,43 @@
 ﻿using ClienteAPI.Util;
+using ClienteAPI.Util.Validators;
 using Xunit;
 
 namespace ClienteAPI.Test.Util
 {
     public class CPFValidatorTest
     {
-        private readonly CPFValidator _cpfValidator;
-        
+        private readonly ICPFValidator _cpfValidator;
+
         public CPFValidatorTest()
         {
             _cpfValidator = new CPFValidator();
         }
-        
 
         [Fact]
-        public void testValidFormat()
+        public void TestValidFormat()
         {
-            Assert.True(_cpfValidator.IsValid("255.305.154-95"));
+            Assert.True(_cpfValidator.IsValid(255_305_154_95));
         }
-        
-        
-        [Theory]
-        [InlineData("11111111111")]
-        [InlineData("25530515495")]
-        [InlineData("111.111.111.11")]
-        [InlineData("111111111-11")]
-        [InlineData("111.111.11111")]
-        [InlineData("255.305.154-9545")]
-        [InlineData("055-305-154-95")]
-        [InlineData("1.1.1-2")]
-        public void testInvalidFormat(string cpf)
+
+        [Fact]
+        public void TestValidCpfStartingWithZero()
         {
-            Assert.False(_cpfValidator.IsValid(cpf));   
+            Assert.True(_cpfValidator.IsValid(011_685_990_32));
         }
 
         [Theory]
-        [InlineData("111.111.111-11")]
-        [InlineData("123.456.789-10")]
-        public void testInvalidSequence(string cpf)
+        [InlineData(1)]
+        [InlineData(123456789123456)]
+        public void TestCPfWithLengthDifferentOfEleven(long cpf)
+        {
+            Assert.False(_cpfValidator.IsValid(cpf));
+        }
+
+        [Theory]
+        [InlineData(111_111_111_112)]
+        [InlineData(123_456_789_10)]
+        [InlineData(109_876_543_21)]
+        public void TestInvalidSequences(long cpf)
         {
             Assert.False(_cpfValidator.IsValid(cpf));
         }

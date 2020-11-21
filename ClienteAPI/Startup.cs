@@ -2,10 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using ClienteAPI.Mappers;
+using ClienteAPI.Models.Entity;
 using ClienteAPI.Persistence.Contexts;
 using ClienteAPI.Persistence.Repositories;
 using ClienteAPI.Services;
 using ClienteAPI.Util;
+using ClienteAPI.Util.Validators;
+using FluentValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -53,7 +56,10 @@ namespace ClienteAPI
 
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IClienteService, ClienteService>();
+            
             services.AddScoped<ICPFFormatter, CPFFormatter>();
+            services.AddScoped<ICPFValidator, CPFValidator>();
+            services.AddScoped<IValidator<Cliente>, ClienteValidator>();
 
             services.AddScoped(provider => new MapperConfiguration(cfg =>
             {
