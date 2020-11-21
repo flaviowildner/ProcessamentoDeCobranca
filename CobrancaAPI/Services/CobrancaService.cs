@@ -30,6 +30,19 @@ namespace CobrancaAPI.Services
             }
         }
 
+        public async Task<CobrancaListResponse> CreateMany(IEnumerable<Cobranca> cobrancas)
+        {
+            try
+            {
+                await _cobrancaRepository.CreateMany(cobrancas);
+                return new CobrancaListResponse(cobrancas);
+            }
+            catch (Exception ex)
+            {
+                return new CobrancaListResponse($"An error ocurred while saving cobranca: {ex.Message}");
+            }
+        }
+
         public async Task<CobrancaListResponse> Query(IDictionary<string, string> cobrancaQuery)
         {
             try

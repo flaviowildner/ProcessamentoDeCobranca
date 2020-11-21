@@ -7,6 +7,8 @@ namespace CobrancaAPI.Persistence.Repositories
     public interface ICobrancaRepository
     {
         Task Create(Cobranca cobranca);
+        
+        Task CreateMany(IEnumerable<Cobranca> cobrancas);
 
         Task<IEnumerable<Cobranca>> Query(IDictionary<string, string> cobrancaQuery);
     }

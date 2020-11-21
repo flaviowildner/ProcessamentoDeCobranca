@@ -30,6 +30,11 @@ namespace CobrancaAPI.Persistence.Repositories
             return _cobrancas.InsertOneAsync(cobranca);
         }
 
+        public Task CreateMany(IEnumerable<Cobranca> cobrancas)
+        {
+            return _cobrancas.InsertManyAsync(cobrancas);
+        }
+
         public async Task<IEnumerable<Cobranca>> Query(IDictionary<string, string> cobrancaQuery)
         {
             IList<FilterDefinition<Cobranca>> filterDefinitions = new List<FilterDefinition<Cobranca>>();

@@ -38,6 +38,23 @@ namespace CobrancaAPI.Controllers
             return Ok(cobrancaParams);
         }
 
+        [HttpPost]
+        [Route("batch")]
+        public async Task<IActionResult> CreateMany([FromBody] IEnumerable<CobrancaDTO> cobrancaDtos)
+        {
+            IEnumerable<Cobranca> cobrancas =
+                _mapper.Map<IEnumerable<CobrancaDTO>, IEnumerable<Cobranca>>(cobrancaDtos);
+
+            CobrancaListResponse cobrancaListResponse = await _cobrancaService.CreateMany(cobrancas);
+
+            if (!cobrancaListResponse.Success)
+            {
+                return BadRequest(new List<string> {cobrancaListResponse.Message});
+            }
+
+            return Ok("Ok");
+        }
+
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] IDictionary<string, string> cobrancaQuery)
         {

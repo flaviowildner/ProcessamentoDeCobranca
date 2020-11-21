@@ -9,6 +9,8 @@ namespace CobrancaAPI.Services
     {
         Task<CobrancaResponse> Create(Cobranca cobranca);
 
+        Task<CobrancaListResponse> CreateMany(IEnumerable<Cobranca> cobrancas);
+
         Task<CobrancaListResponse> Query(IDictionary<string, string> cobrancaQuery);
     }
 }

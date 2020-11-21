@@ -9,6 +9,6 @@ namespace CalculadorDeConsumo.Communication
     {
         Task<IEnumerable<ClienteDTO>> GetClientes();
 
-        Task<CobrancaDTO> CreateCobranca(CobrancaDTO cobranca);
+        Task<bool> CreateCobrancaBatch(IEnumerable<CobrancaDTO> cobrancas);
     }
 }

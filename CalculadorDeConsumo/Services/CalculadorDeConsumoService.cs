@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CalculadorDeConsumo.Communication;
 using CalculadorDeConsumo.Services.CalculadorDeConsumo;
 using ClienteAPI.Models.DTO;
 using CobrancaAPI.Models.DTO;
-
 
 namespace CalculadorDeConsumo.Services
 {
@@ -24,19 +24,21 @@ namespace CalculadorDeConsumo.Services
         {
             IEnumerable<ClienteDTO> clientes = await _apiCommunication.GetClientes();
 
-            foreach (ClienteDTO cliente in clientes)
-            {
-                decimal valorCobranca = _calculadorDeConsumo.Calcula(cliente);
+            IEnumerable<CobrancaDTO> cobrancaDtos = clientes.Select(cliente => GenerateCobranca(cliente)).ToList();
 
-                CobrancaDTO cobranca = new CobrancaDTO();
-                cobranca.Cpf = cliente.Cpf;
-                cobranca.Vencimento = DateTime.Now.AddMonths(1);
-                cobranca.Valor = valorCobranca;
+            return await _apiCommunication.CreateCobrancaBatch(cobrancaDtos);
+        }
 
-                await _apiCommunication.CreateCobranca(cobranca);
-            }
+        private CobrancaDTO GenerateCobranca(ClienteDTO cliente)
+        {
+            decimal valorCobranca = _calculadorDeConsumo.Calcula(cliente);
 
-            return true;
+            CobrancaDTO cobrancaDto = new CobrancaDTO();
+            cobrancaDto.Cpf = cliente.Cpf;
+            cobrancaDto.Vencimento = DateTime.Now.AddMonths(1);
+            cobrancaDto.Valor = valorCobranca;
+
+            return cobrancaDto;
         }
     }
 }
