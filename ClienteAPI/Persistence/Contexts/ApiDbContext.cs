@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using ClienteAPI.Models.Entity;
-using ClienteAPI.Util;
+﻿using ClienteAPI.Models.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClienteAPI.Persistence.Contexts

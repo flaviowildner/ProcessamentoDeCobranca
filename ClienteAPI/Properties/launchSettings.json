@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "ProcessamentoDeCobranca": {
+    "ClienteAPI": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": false,

@@ -25,6 +25,25 @@ namespace ClienteAPI.Controllers
             _cpfFormatter = cpfFormatter;
         }
 
+        /// <summary>
+        /// Create a cliente
+        /// </summary>
+        /// 
+        /// <remarks>
+        /// sample request:
+        ///
+        ///     POST /api/clientes
+        /// 
+        /// sample response:
+        ///
+        ///     {
+        ///         "cpf": "100.268.579-60",
+        ///         "nome": "Fulano",
+        ///         "estado": "RJ"
+        ///     }
+        ///
+        /// </remarks>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] ClienteDTO clienteParams)
         {
@@ -40,6 +59,47 @@ namespace ClienteAPI.Controllers
             return Ok(clienteDto);
         }
 
+
+        /// <summary>
+        /// Get clientes
+        /// </summary>
+        /// 
+        /// <remarks>
+        /// By CPF sample request:
+        ///
+        ///     GET /api/clientes?cpf=100.268.579-60
+        /// 
+        /// By CPF sample response:
+        ///
+        ///     {
+        ///         "cpf": "100.268.579-60",
+        ///         "nome": "Fulano",
+        ///         "estado": "RJ"
+        ///     }
+        ///
+        /// All clientes sample request:
+        ///
+        ///     GET /api/clientes
+        ///
+        /// All clientes sample request:
+        ///
+        ///     [
+        ///         {
+        ///             "cpf": "100.268.579-60",
+        ///             "nome": "Fulano",
+        ///             "estado": "RJ"
+        ///         },
+        ///         {
+        ///             "cpf": "100.329.856-73",
+        ///             "nome": "Ciclano",
+        ///             "estado": "SP"
+        ///         }
+        ///     ]
+        ///   
+        /// 
+        /// </remarks>
+        /// <param name="cpf">The optional cpf filter</param>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] string cpf)
         {

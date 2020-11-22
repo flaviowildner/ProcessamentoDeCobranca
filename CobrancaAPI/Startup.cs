@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using AutoMapper;
+using ClienteAPI;
 using CobrancaAPI.Models.Entity;
 using CobrancaAPI.Persistence.Repositories;
-using CobrancaAPI.Persistence.Repositories.MongoDB;
 using CobrancaAPI.Persistence.Repositories.MongoDB.FilterStrategies;
 using CobrancaAPI.Services;
 using CobrancaAPI.Settings;
@@ -32,6 +32,7 @@ namespace CobrancaAPI
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "CobrancaAPI", Version = "v1"});
+                c.DocumentFilter<SwaggerFilters>();
             });
 
             services.Configure<CobrancaDatabaseSettings>(Configuration.GetSection(nameof(CobrancaDatabaseSettings)));
@@ -52,7 +53,7 @@ namespace CobrancaAPI
             });
 
             services.AddScoped<ICobrancaService, CobrancaService>();
-            
+
             services.AddAutoMapper(typeof(Startup));
         }
 

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using CobrancaAPI.Models;
 using CobrancaAPI.Models.DTO;
 using CobrancaAPI.Models.Entity;
 using CobrancaAPI.Models.Services;
@@ -22,7 +21,7 @@ namespace CobrancaAPI.Controllers
             _cobrancaService = cobrancaService;
             _mapper = mapper;
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> CreateMany([FromBody] IEnumerable<CobrancaDTO> cobrancaDtos)
         {
