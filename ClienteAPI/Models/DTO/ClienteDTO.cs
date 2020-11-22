@@ -1,13 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace ClienteAPI.Models.DTO
+﻿namespace ClienteAPI.Models.DTO
 {
     public class ClienteDTO
     {
-        [Required] public string Cpf { get; set; }
+        public string Cpf { get; set; }
 
-        [Required] public string Nome { get; set; }
+        public string Nome { get; set; }
 
-        [Required] public string Estado { get; set; }
+        public string Estado { get; set; }
     }
 }

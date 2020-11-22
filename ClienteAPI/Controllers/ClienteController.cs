@@ -7,8 +7,6 @@ using ClienteAPI.Models.DTO;
 using ClienteAPI.Models.Entity;
 using ClienteAPI.Models.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace ClienteAPI.Controllers
 {
@@ -35,8 +33,7 @@ namespace ClienteAPI.Controllers
 
             if (!clienteResponse.Success)
             {
-                ModelState.AddModelError(nameof(ClienteDTO.Cpf), "Duplicated CPF");
-                return ValidationProblem();
+                return BadRequest(clienteResponse.Message);
             }
 
             ClienteDTO clienteDto = _mapper.Map<Cliente, ClienteDTO>(clienteResponse.Resource);
@@ -63,12 +60,6 @@ namespace ClienteAPI.Controllers
             ClienteListResponse clientes = await _clienteService.ListAsync();
 
             return Ok(_mapper.Map<IEnumerable<Cliente>, IEnumerable<ClienteDTO>>(clientes.Resource));
-        }
-
-        public override ActionResult ValidationProblem()
-        {
-            var options = HttpContext.RequestServices.GetRequiredService<IOptions<ApiBehaviorOptions>>();
-            return (ActionResult) options.Value.InvalidModelStateResponseFactory(ControllerContext);
         }
     }
 }
