@@ -1,4 +1,4 @@
-using CalculadorDeConsumo.Services.CalculadorDeConsumo;
+using CalculadorDeConsumo.Services.ConsumptionCalculator;
 using ClienteAPI.Models.DTO;
 using Xunit;
 using Xunit.Abstractions;
@@ -8,11 +8,11 @@ namespace CalculadorDeConsumo.Tests.UnitsTests
     public class CalculadorDeConsumoBaseadoNoCPFTest
     {
         private readonly ITestOutputHelper _testOutputHelper;
-        private readonly ICalculadorDeConsumo _calculadorDeConsumo;
+        private readonly IConsumptionCalculator _consumptionCalculator;
         public CalculadorDeConsumoBaseadoNoCPFTest(ITestOutputHelper testOutputHelper)
         {
             _testOutputHelper = testOutputHelper;
-            _calculadorDeConsumo = new CalculadorDeConsumoBaseadoNoCPF();
+            _consumptionCalculator = new CpfBasedConsumptionCalculator();
         }
 
         [Fact]
@@ -23,7 +23,7 @@ namespace CalculadorDeConsumo.Tests.UnitsTests
             cliente.Nome = "Fulano";
             cliente.Estado = "RJ";
 
-            decimal valor = _calculadorDeConsumo.Calcula(cliente);
+            decimal valor = _consumptionCalculator.Calcula(cliente);
 
             Assert.Equal(2595, valor);
         }

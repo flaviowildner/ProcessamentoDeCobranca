@@ -2,7 +2,7 @@
 
 namespace CalculadorDeConsumo.Services
 {
-    public interface ICalculadorDeConsumoService
+    public interface ICobrancaRegistrationService
     {
         Task<bool> Calcula();
     }

@@ -24,35 +24,14 @@ namespace CobrancaAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CobrancaDTO cobrancaParams)
-        {
-            Cobranca cobranca = _mapper.Map<CobrancaDTO, Cobranca>(cobrancaParams);
-
-            CobrancaResponse cobrancaResponse = await _cobrancaService.Create(cobranca);
-
-            if (!cobrancaResponse.Success)
-            {
-                return BadRequest(new List<string> {cobrancaResponse.Message});
-            }
-
-            return Ok(cobrancaParams);
-        }
-
-        [HttpPost]
-        [Route("batch")]
         public async Task<IActionResult> CreateMany([FromBody] IEnumerable<CobrancaDTO> cobrancaDtos)
         {
             IEnumerable<Cobranca> cobrancas =
                 _mapper.Map<IEnumerable<CobrancaDTO>, IEnumerable<Cobranca>>(cobrancaDtos);
 
-            CobrancaListResponse cobrancaListResponse = await _cobrancaService.CreateMany(cobrancas);
+            Task<CobrancaListResponse> task = _cobrancaService.CreateMany(cobrancas);
 
-            if (!cobrancaListResponse.Success)
-            {
-                return BadRequest(new List<string> {cobrancaListResponse.Message});
-            }
-
-            return Ok("Ok");
+            return Ok("ok");
         }
 
         [HttpGet]

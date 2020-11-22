@@ -1,7 +1,8 @@
-using CalculadorDeConsumo.Communication;
 using CalculadorDeConsumo.Infrastructure.Factories;
+using CalculadorDeConsumo.MicroservicesCommunication.Clientes;
+using CalculadorDeConsumo.MicroservicesCommunication.Cobrancas;
 using CalculadorDeConsumo.Services;
-using CalculadorDeConsumo.Services.CalculadorDeConsumo;
+using CalculadorDeConsumo.Services.ConsumptionCalculator;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,9 +30,11 @@ namespace CalculadorDeConsumo
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "CalculadorDeConsumo", Version = "v1"});
             });
 
-            services.AddScoped<IAPICommunication, HttpAPICommunication>();
-            services.AddScoped<ICalculadorDeConsumoService, CalculadorDeConsumoService>();
-            services.AddScoped<ICalculadorDeConsumo, CalculadorDeConsumoBaseadoNoCPF>();
+            services.AddScoped<IClienteCommunication, HttpClienteCommunication>();
+            services.AddScoped<ICobrancaCommunication, HttpCobrancaCommunication>();
+
+            services.AddScoped<ICobrancaRegistrationService, CobrancaRegistrationService>();
+            services.AddScoped<IConsumptionCalculator, CpfBasedConsumptionCalculator>();
             services.AddScoped<ICobrancaFactory, CobrancaFactory>();
         }
 

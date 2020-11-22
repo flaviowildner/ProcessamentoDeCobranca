@@ -1,5 +1,5 @@
 ﻿using System;
-using CalculadorDeConsumo.Services.CalculadorDeConsumo;
+using CalculadorDeConsumo.Services.ConsumptionCalculator;
 using ClienteAPI.Models.DTO;
 using CobrancaAPI.Models.DTO;
 
@@ -7,7 +7,7 @@ namespace CalculadorDeConsumo.Infrastructure.Factories
 {
     public class CobrancaFactory : BaseCobrancaFactory
     {
-        public CobrancaFactory(ICalculadorDeConsumo calculadorDeConsumo) : base(calculadorDeConsumo)
+        public CobrancaFactory(IConsumptionCalculator consumptionCalculator) : base(consumptionCalculator)
         {
         }
 
@@ -21,7 +21,7 @@ namespace CalculadorDeConsumo.Infrastructure.Factories
             CobrancaDTO cobrancaDto = Create();
             cobrancaDto.Cpf = cliente.Cpf;
             cobrancaDto.Vencimento = DateTime.Now.AddMonths(1);
-            cobrancaDto.Valor = CalculadorDeConsumo.Calcula(cliente);
+            cobrancaDto.Valor = ConsumptionCalculator.Calcula(cliente);
 
             return cobrancaDto;
         }

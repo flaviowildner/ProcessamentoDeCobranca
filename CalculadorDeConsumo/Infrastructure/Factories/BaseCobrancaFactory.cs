@@ -1,4 +1,4 @@
-﻿using CalculadorDeConsumo.Services.CalculadorDeConsumo;
+﻿using CalculadorDeConsumo.Services.ConsumptionCalculator;
 using ClienteAPI.Models.DTO;
 using CobrancaAPI.Models.DTO;
 
@@ -6,11 +6,11 @@ namespace CalculadorDeConsumo.Infrastructure.Factories
 {
     public abstract class BaseCobrancaFactory : ICobrancaFactory
     {
-        protected readonly ICalculadorDeConsumo CalculadorDeConsumo;
+        protected readonly IConsumptionCalculator ConsumptionCalculator;
 
-        public BaseCobrancaFactory(ICalculadorDeConsumo calculadorDeConsumo)
+        public BaseCobrancaFactory(IConsumptionCalculator consumptionCalculator)
         {
-            CalculadorDeConsumo = calculadorDeConsumo;
+            ConsumptionCalculator = consumptionCalculator;
         }
 
         public abstract CobrancaDTO Create();

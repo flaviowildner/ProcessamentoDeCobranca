@@ -8,17 +8,17 @@ namespace CalculadorDeConsumo.Controllers
     [Route("/calcula")]
     public class CalculadorDeConsumo : ControllerBase
     {
-        private readonly ICalculadorDeConsumoService _calculadorDeConsumoService;
+        private readonly ICobrancaRegistrationService _cobrancaRegistrationService;
 
-        public CalculadorDeConsumo(ICalculadorDeConsumoService calculadorDeConsumoService)
+        public CalculadorDeConsumo(ICobrancaRegistrationService cobrancaRegistrationService)
         {
-            _calculadorDeConsumoService = calculadorDeConsumoService;
+            _cobrancaRegistrationService = cobrancaRegistrationService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Calcula()
         {
-            bool ok = await _calculadorDeConsumoService.Calcula();
+            bool ok = await _cobrancaRegistrationService.Calcula();
 
             return Ok(ok);
         }

@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using ClienteAPI.Models.DTO;
+﻿using ClienteAPI.Models.DTO;
 
-namespace CalculadorDeConsumo.Services.CalculadorDeConsumo
+namespace CalculadorDeConsumo.Services.ConsumptionCalculator
 {
-    public class CalculadorDeConsumoBaseadoNoCPF : ICalculadorDeConsumo
+    public class CpfBasedConsumptionCalculator : IConsumptionCalculator
     {
         public decimal Calcula(ClienteDTO cliente)
         {
