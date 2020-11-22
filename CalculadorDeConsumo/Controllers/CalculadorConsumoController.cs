@@ -1,11 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using CalculadorDeConsumo.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CalculadorDeConsumo.Controllers
 {
     [ApiController]
-    [Route("/calcula")]
+    [Route("/api/calculador-consumo")]
     public class CalculadorDeConsumo : ControllerBase
     {
         private readonly ICobrancaRegistrationService _cobrancaRegistrationService;
@@ -15,12 +16,18 @@ namespace CalculadorDeConsumo.Controllers
             _cobrancaRegistrationService = cobrancaRegistrationService;
         }
 
-        [HttpGet]
+        [HttpPost]
+        [Route("calcula")]
         public async Task<IActionResult> Calcula()
         {
-            bool ok = await _cobrancaRegistrationService.Calcula();
-
-            return Ok(ok);
+            try
+            {
+                return Ok(await _cobrancaRegistrationService.Calcula());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }
