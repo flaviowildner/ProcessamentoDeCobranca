@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text;
@@ -10,7 +11,13 @@ namespace CalculadorDeConsumo.MicroservicesCommunication.Cobrancas
 {
     public class HttpCobrancaCommunication : ICobrancaCommunication
     {
-        private static HttpClient _httpClient = new HttpClient();
+        private readonly string _baseAddress;
+        private static readonly HttpClient HttpClient = new HttpClient();
+
+        public HttpCobrancaCommunication(String baseAddress)
+        {
+            _baseAddress = baseAddress;
+        }
 
         public async Task<bool> CreateCobrancaBatch(IEnumerable<CobrancaDTO> cobrancas)
         {
@@ -20,7 +27,7 @@ namespace CalculadorDeConsumo.MicroservicesCommunication.Cobrancas
                 "application/json");
 
             HttpResponseMessage response =
-                await _httpClient.PostAsync("https://localhost:44388/api/cobrancas", cobrancaSerialized);
+                await HttpClient.PostAsync($"{_baseAddress}/api/cobrancas", cobrancaSerialized);
 
             return response.StatusCode == HttpStatusCode.OK;
         }

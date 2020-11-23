@@ -38,7 +38,7 @@ namespace PerformanceTests
                 "Time taken to create {0} cobrancas: " + stopwatch.Elapsed.Milliseconds + " milliseconds", nClientes);
         }
 
-        public static IEnumerable<ClienteDTO> randomClientes(int nClientes)
+        private static IEnumerable<ClienteDTO> randomClientes(int nClientes)
         {
             List<ClienteDTO> clientes = new List<ClienteDTO>();
             for (int i = 0; i < nClientes; i++)
@@ -54,39 +54,39 @@ namespace PerformanceTests
             return clientes;
         }
 
-        public static String GerarCpf()
+        private static String GerarCpf()
         {
-            int soma = 0, resto = 0;
-            int[] multiplicador1 = new int[9] {10, 9, 8, 7, 6, 5, 4, 3, 2};
-            int[] multiplicador2 = new int[10] {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
+            int sum = 0, mod = 0;
+            int[] multiplier1 = new int[9] {10, 9, 8, 7, 6, 5, 4, 3, 2};
+            int[] multiplier2 = new int[10] {11, 10, 9, 8, 7, 6, 5, 4, 3, 2};
 
             Random rnd = new Random();
-            string semente = rnd.Next(100000000, 999999999).ToString();
+            string seed = rnd.Next(100000000, 999999999).ToString();
 
             for (int i = 0; i < 9; i++)
-                soma += int.Parse(semente[i].ToString()) * multiplicador1[i];
+                sum += int.Parse(seed[i].ToString()) * multiplier1[i];
 
-            resto = soma % 11;
-            if (resto < 2)
-                resto = 0;
+            mod = sum % 11;
+            if (mod < 2)
+                mod = 0;
             else
-                resto = 11 - resto;
+                mod = 11 - mod;
 
-            semente = semente + resto;
-            soma = 0;
+            seed = seed + mod;
+            sum = 0;
 
             for (int i = 0; i < 10; i++)
-                soma += int.Parse(semente[i].ToString()) * multiplicador2[i];
+                sum += int.Parse(seed[i].ToString()) * multiplier2[i];
 
-            resto = soma % 11;
+            mod = sum % 11;
 
-            if (resto < 2)
-                resto = 0;
+            if (mod < 2)
+                mod = 0;
             else
-                resto = 11 - resto;
+                mod = 11 - mod;
 
-            semente = semente + resto;
-            return semente;
+            seed = seed + mod;
+            return seed;
         }
     }
 }

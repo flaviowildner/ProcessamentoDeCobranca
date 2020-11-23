@@ -32,8 +32,11 @@ namespace CalculadorDeConsumo
                 c.DocumentFilter<SwaggerFilters>();
             });
 
-            services.AddScoped<IClienteCommunication, HttpClienteCommunication>();
-            services.AddScoped<ICobrancaCommunication, HttpCobrancaCommunication>();
+            services.AddScoped<IClienteCommunication>(provider =>
+                new HttpClienteCommunication(Configuration["ClientesBaseAddress"]));
+            
+            services.AddScoped<ICobrancaCommunication>(provider =>
+                new HttpCobrancaCommunication(Configuration["CobrancasBaseAddress"]));
 
             services.AddScoped<ICobrancaRegistrationService, CobrancaRegistrationService>();
             services.AddScoped<IConsumptionCalculator, CpfBasedConsumptionCalculator>();
