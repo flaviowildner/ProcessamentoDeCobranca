@@ -26,7 +26,7 @@ namespace PerformanceTests
         [Fact]
         public void CreateCobrancasForTheNClientes()
         {
-            int nClientes = 1_000_000;
+            int nClientes = 500_000;
             IEnumerable<ClienteDTO> clientes = randomClientes(nClientes);
 
             stopwatch.Start();
