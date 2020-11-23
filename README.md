@@ -20,7 +20,23 @@ O processo de cobrança acontece da seguinte forma:
 ![Arquitetura](diagram2.png)
 
 ## Endpoints
-As documentações das APIs foram geradas utilizando o Swashbuckle e estão disponíveis no endereço raiz das APIs. 
+As documentações das APIs foram geradas utilizando o Swashbuckle e estão disponíveis no endereço raiz das APIs.
+
+## Execução
+
+- ClienteAPI:  
+`dotnet run -p CobrancaAPI`  
+Ficará disponível em `localhost:5001`
+
+- CobrancaAPI:  
+`dotnet run -p CobrancaAPI`  
+Ficará disponível em `localhost:5002`
+
+- RegistradorDeCobranca:  
+`dotnet run -p RegistradorDeCobranca`  
+Ficará disponível em `localhost:5003`
+
+
 
 
 ## Implantação
