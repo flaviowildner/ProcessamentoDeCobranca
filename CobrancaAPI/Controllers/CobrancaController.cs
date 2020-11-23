@@ -21,7 +21,21 @@ namespace CobrancaAPI.Controllers
             _cobrancaService = cobrancaService;
             _mapper = mapper;
         }
-        
+
+        /// <summary>
+        /// Create cobrancas
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/cobrancas
+        ///     [{
+        ///         "cpf": "100.268.579-60",
+        ///         "valor": 1500,
+        ///         "vencimento": "2020-04-03"
+        ///     }]
+        /// </remarks>
+        /// <param name="cobrancaDtos">A list of clientes to be created.</param>
         [HttpPost]
         public async Task<IActionResult> CreateMany([FromBody] IEnumerable<CobrancaDTO> cobrancaDtos)
         {
@@ -33,6 +47,20 @@ namespace CobrancaAPI.Controllers
             return Ok("ok");
         }
 
+
+        /// <summary>
+        /// Get cobrancas
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET /api/cobrancas
+        ///     {
+        ///         "cpf": "100.268.579-60",
+        ///         "mes": 2020-12
+        ///     }
+        /// </remarks>
+        /// <param name="cobrancaQuery">A dictionary containing the query filters, in which each entry is the type of filter and the value to be filtered.</param>
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] IDictionary<string, string> cobrancaQuery)
         {

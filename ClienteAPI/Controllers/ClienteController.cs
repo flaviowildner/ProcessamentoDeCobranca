@@ -28,13 +28,12 @@ namespace ClienteAPI.Controllers
         /// <summary>
         /// Create a cliente
         /// </summary>
-        /// 
         /// <remarks>
-        /// sample request:
+        /// Sample request:
         ///
         ///     POST /api/clientes
         /// 
-        /// sample response:
+        /// Sample response:
         ///
         ///     {
         ///         "cpf": "100.268.579-60",
@@ -81,6 +80,8 @@ namespace ClienteAPI.Controllers
         ///
         ///     GET /api/clientes
         ///
+        ///
+        /// 
         /// All clientes sample request:
         ///
         ///     [
@@ -95,8 +96,6 @@ namespace ClienteAPI.Controllers
         ///             "estado": "SP"
         ///         }
         ///     ]
-        ///   
-        /// 
         /// </remarks>
         /// <param name="cpf">The optional cpf filter</param>
         /// <returns></returns>
@@ -111,8 +110,13 @@ namespace ClienteAPI.Controllers
             long longCpf = _cpfFormatter.ToLong(cpf);
 
             ClienteResponse clienteResponse = await _clienteService.FindByCpf(longCpf);
+            if (!clienteResponse.Success)
+            {
+                return BadRequest(clienteResponse.Message);
+            }
 
-            return Ok(_mapper.Map<Cliente, ClienteDTO>(clienteResponse.Resource));
+            ClienteDTO clienteDto = _mapper.Map<Cliente, ClienteDTO>(clienteResponse.Resource);
+            return Ok(clienteDto);
         }
 
         private async Task<IActionResult> ListAsync()

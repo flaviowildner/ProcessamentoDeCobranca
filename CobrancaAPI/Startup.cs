@@ -1,11 +1,14 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using AutoMapper;
-using ClienteAPI;
 using CobrancaAPI.Models.Entity;
 using CobrancaAPI.Persistence.Repositories;
 using CobrancaAPI.Persistence.Repositories.MongoDB.FilterStrategies;
 using CobrancaAPI.Services;
 using CobrancaAPI.Settings;
+using CobrancaAPI.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,8 +27,7 @@ namespace CobrancaAPI
         }
 
         public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
@@ -33,6 +35,10 @@ namespace CobrancaAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "CobrancaAPI", Version = "v1"});
                 c.DocumentFilter<SwaggerFilters>();
+                
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
 
             services.Configure<CobrancaDatabaseSettings>(Configuration.GetSection(nameof(CobrancaDatabaseSettings)));
@@ -42,7 +48,7 @@ namespace CobrancaAPI
             services.AddScoped<ICobrancaRepository>(provider =>
             {
                 var mongoFilterDefinitionStrategies =
-                    new Dictionary<string, IMongoFilterDefinitionStrategy<Cobranca>>()
+                    new Dictionary<string, IMongoFilterDefinitionStrategy<Cobranca>>
                     {
                         {"cpf", new CpfMongoFilterDefinitionStrategy()},
                         {"mes", new MesMongoFilterDefinitionStrategy()}
@@ -56,8 +62,7 @@ namespace CobrancaAPI
 
             services.AddAutoMapper(typeof(Startup));
         }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

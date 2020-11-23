@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using CalculadorDeConsumo.Infrastructure.Factories;
 using CalculadorDeConsumo.MicroservicesCommunication.Clientes;
 using CalculadorDeConsumo.MicroservicesCommunication.Cobrancas;
@@ -30,6 +33,10 @@ namespace CalculadorDeConsumo
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "CalculadorDeConsumo", Version = "v1"});
                 c.DocumentFilter<SwaggerFilters>();
+                
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
 
             services.AddScoped<IClienteCommunication>(provider =>

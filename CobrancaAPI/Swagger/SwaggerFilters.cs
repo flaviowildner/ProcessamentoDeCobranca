@@ -2,7 +2,7 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace ClienteAPI
+namespace CobrancaAPI.Swagger
 {
     public class SwaggerFilters : IDocumentFilter
     {

@@ -41,7 +41,7 @@ namespace ClienteAPI
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath, true);
+                c.IncludeXmlComments(xmlPath);
             });
 
 
