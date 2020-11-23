@@ -13,12 +13,21 @@ namespace ClienteAPI.Test.Util
         }
         
         
-        [Theory]
-        [InlineData("255.305.154-95")]
-        [InlineData("25530515495")]
-        public void TestToLong(string cpf)
+        [Fact]
+        public void TestToLong()
         {
-            Assert.Equal(25530515495, _cpfFormatter.ToLong(cpf));
+            Assert.Equal(25530515495, _cpfFormatter.ToLong("255.305.154-95"));
+        }
+
+        [Theory]
+        [InlineData("123")]
+        [InlineData("123.321.32123")]
+        [InlineData("123321321-23")]
+        [InlineData("123.321321-23")]
+        [InlineData("123321.321-23")]
+        public void TestInvalid(string cpf)
+        {
+            Assert.Equal(-1, _cpfFormatter.ToLong(cpf));
         }
     }
 }
