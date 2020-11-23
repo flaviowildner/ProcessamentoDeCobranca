@@ -17,7 +17,7 @@ O processo de cobrança acontece da seguinte forma:
 
 ## Diagrama da arquitetura
 
-![Arquitetura](diagram.png)
+![Arquitetura](diagram2.png)
 
 ## Endpoints
 As documentações das APIs foram geradas utilizando o Swashbuckle e estão disponíveis no endereço raiz das APIs. 
