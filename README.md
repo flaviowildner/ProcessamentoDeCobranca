@@ -10,7 +10,7 @@ O processo de cobrança acontece da seguinte forma:
 
 1 - O RegistradorDeCobranca obtém todos os clientes através da `ClienteAPI`
 
-2 - Para cada cliente calcula o valor devido e instancia as `Cobrancas`.
+2 - Para cada cliente, calcula o valor devido e instancia as `Cobrancas`.
 
 3 - Envia o batch de `Cobrancas` para a `CobrancaAPI`.
 
