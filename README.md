@@ -48,3 +48,6 @@ estão implantados na Azure. O MongoDB, banco da `CobrancaAPI`, está implantado
 - `ClienteAPI`: https://clienteapi.azurewebsites.net
 - `CobrancaAPI`: https://cobrancaapi.azurewebsites.net
 - `RegistradorDeCobranca`: https://registradordecobranca.azurewebsites.net
+
+
+Obs: A `ClienteAPI` já está populada com 100000 clientes gerados aleatoriamente.
