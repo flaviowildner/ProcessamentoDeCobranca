@@ -6,6 +6,8 @@
         <IsPackable>false</IsPackable>
 
         <LangVersion>8</LangVersion>
+
+        <RootNamespace>RegistradorDeCobranca.Tests</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -23,7 +25,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\RegistradorDeCobranca\RegistradorDeCobranca.csproj" />
-      <ProjectReference Include="..\ClienteAPI\ClienteAPI.csproj" />
+      <ProjectReference Include="..\RegistradorDeCobranca\RegistradorDeCobranca.csproj" />
     </ItemGroup>
 
 </Project>

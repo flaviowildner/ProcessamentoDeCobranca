@@ -11,15 +11,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CobrancaAPI", "CobrancaAPI\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CobrancaAPI.Test", "CobrancaAPI.Test\CobrancaAPI.Test.csproj", "{DA7771B0-A65C-4464-AB7A-E592C836C177}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculadorDeConsumo", "CalculadorDeConsumo\CalculadorDeConsumo.csproj", "{DAF055AB-BFE5-4BF7-855E-DA4B756E4592}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistradorDeCobranca", "RegistradorDeCobranca\RegistradorDeCobranca.csproj", "{DAF055AB-BFE5-4BF7-855E-DA4B756E4592}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculadorDeConsumo.Tests", "CalculadorDeConsumo.Tests\CalculadorDeConsumo.Tests.csproj", "{47A6492B-6AB2-4258-BAE4-31B8050F18AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegistradorDeCobranca.Tests", "RegistradorDeCobranca.Tests\RegistradorDeCobranca.Tests.csproj", "{47A6492B-6AB2-4258-BAE4-31B8050F18AD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClienteAPI", "ClienteAPI", "{ACCBD1D8-93DA-411B-B490-FA924F6A1467}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CobrancaAPI", "CobrancaAPI", "{003D090B-7FE9-4126-AF3F-252BF12AD6A1}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CalculadorDeConsumo", "CalculadorDeConsumo", "{0DF8EED2-0391-43B5-BBF9-5E4CD10A8549}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RegistradorDeCobranca", "RegistradorDeCobranca", "{0DF8EED2-0391-43B5-BBF9-5E4CD10A8549}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6ADC2623-DA2A-48C4-A923-B1DD01782FB5}"
 	ProjectSection(SolutionItems) = preProject
