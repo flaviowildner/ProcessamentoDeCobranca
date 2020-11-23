@@ -24,8 +24,10 @@ As documentações das APIs foram geradas utilizando o Swashbuckle e estão disp
 
 ## Execução
 
+Configurar os endereços da `ClienteAPI` e da `CobrancaAPI` no arquivo `appsettings.json` no projeto `RegistradorDeCobranca`.   
+
 - ClienteAPI:  
-`dotnet run -p CobrancaAPI`  
+`dotnet run -p ClienteAPI`  
 Ficará disponível em `localhost:5001`
 
 - CobrancaAPI:  
