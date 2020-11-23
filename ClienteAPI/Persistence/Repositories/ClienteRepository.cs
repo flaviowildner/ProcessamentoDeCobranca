@@ -32,7 +32,7 @@ namespace ClienteAPI.Persistence.Repositories
         {
             IQueryable<Cliente> queryable = _context.Clients.AsNoTracking();
 
-            if (limit >= 0)
+            if (limit > 0)
                 queryable = queryable.Take(limit);
 
             return await queryable.ToListAsync();
