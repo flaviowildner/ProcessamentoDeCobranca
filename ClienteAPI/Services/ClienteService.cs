@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using ClienteAPI.Persistence.Repositories;
 using ClienteAPI.Models.Entity;
 using ClienteAPI.Models.Services;
-using ClienteAPI.Util;
 using ClienteAPI.Util.Validators;
 using FluentValidation;
 using FluentValidation.Results;
@@ -78,11 +77,11 @@ namespace ClienteAPI.Services
             }
         }
 
-        public async Task<ClienteListResponse> ListAsync()
+        public async Task<ClienteListResponse> ListAsync(int limit)
         {
             try
             {
-                IEnumerable<Cliente> clientes = await _clienteRepository.ListAsync();
+                IEnumerable<Cliente> clientes = await _clienteRepository.ListAsync(limit);
                 return new ClienteListResponse(clientes);
             }
             catch (Exception ex)

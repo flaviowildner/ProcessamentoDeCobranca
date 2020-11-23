@@ -8,6 +8,6 @@ namespace ClienteAPI.Services
     {
         Task<ClienteResponse> AddAsync(Cliente cliente);
         Task<ClienteResponse> FindByCpf(long cpf);
-        Task<ClienteListResponse> ListAsync();
+        Task<ClienteListResponse> ListAsync(int limit);
     }
 }

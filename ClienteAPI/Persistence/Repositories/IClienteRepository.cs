@@ -8,6 +8,6 @@ namespace ClienteAPI.Persistence.Repositories
     {
         Task AddAsync(Cliente cliente);
         Task<Cliente> FindByCpf(long cpf);
-        Task<IEnumerable<Cliente>> ListAsync();
+        Task<IEnumerable<Cliente>> ListAsync(int limit);
     }
 }

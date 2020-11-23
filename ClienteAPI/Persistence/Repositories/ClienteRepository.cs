@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ClienteAPI.Persistence.Contexts;
 using ClienteAPI.Models.Entity;
@@ -27,11 +28,14 @@ namespace ClienteAPI.Persistence.Repositories
             return await _context.Clients.FindAsync(cpf);
         }
 
-        public async Task<IEnumerable<Cliente>> ListAsync()
+        public async Task<IEnumerable<Cliente>> ListAsync(int limit)
         {
-            return await _context.Clients
-                .AsNoTracking()
-                .ToListAsync();
+            IQueryable<Cliente> queryable = _context.Clients.AsNoTracking();
+
+            if (limit >= 0)
+                queryable = queryable.Take(limit);
+
+            return await queryable.ToListAsync();
         }
     }
 }

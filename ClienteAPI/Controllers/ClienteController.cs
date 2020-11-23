@@ -76,13 +76,11 @@ namespace ClienteAPI.Controllers
         ///         "estado": "RJ"
         ///     }
         ///
-        /// All clientes sample request:
+        /// Multiple clientes sample request:
         ///
-        ///     GET /api/clientes
+        ///     GET /api/clientes?limit=2
         ///
-        ///
-        /// 
-        /// All clientes sample request:
+        /// Multiple clientes sample request:
         ///
         ///     [
         ///         {
@@ -98,13 +96,14 @@ namespace ClienteAPI.Controllers
         ///     ]
         /// </remarks>
         /// <param name="cpf">The optional cpf filter</param>
+        /// <param name="limit">An optional parameter to limit the number of entities returned.</param>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] string cpf)
+        public async Task<IActionResult> Get([FromQuery] string cpf, int limit)
         {
             if (string.IsNullOrEmpty(cpf))
             {
-                return await ListAsync();
+                return await ListAsync(limit);
             }
 
             long longCpf = _cpfFormatter.ToLong(cpf);
@@ -119,9 +118,9 @@ namespace ClienteAPI.Controllers
             return Ok(clienteDto);
         }
 
-        private async Task<IActionResult> ListAsync()
+        private async Task<IActionResult> ListAsync(int limit)
         {
-            ClienteListResponse clientes = await _clienteService.ListAsync();
+            ClienteListResponse clientes = await _clienteService.ListAsync(limit);
 
             return Ok(_mapper.Map<IEnumerable<Cliente>, IEnumerable<ClienteDTO>>(clientes.Resource));
         }
